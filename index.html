@@ -14,21 +14,29 @@
 		.controls{
 			color: yellow;
 			font-size:40px;
-			font-weight: 50px;
 			opacity: 1;
 		}
 		span{
 			font-family: 'Shadows Into Light', cursive;
 		}
-		body{
-			background: url("images/bday.jpg");
+		@media screen and (max-width: 500px) {
+			body{
+				background: url("images/bday3.jpg");
+				background-repeat:no-repeat;
+				background-size: cover;
+			}
+		}
+		@media screen and (min-width: 992px) {
+		  body {
+		   	background: url("images/p31.jpg");
 			background-repeat:no-repeat;
-			background-size: 100% 1500px;
+			background-size: cover;
+		  }
 		}
 		#next{
 			text-decoration: none; 
 			color:yellow;
-			font-size:40px;
+			font-size:30px;
 		}
 		#next:hover{
 			opacity: 1;
@@ -42,9 +50,9 @@
 		<div class="row">
 			<div class="col-sm-3">
 			</div>
-			<div class="card m-4 controls p-4" style="background-color: crimson;height:400px;width: 400px;opacity:0.5;border-radius:50%">
+			<div class="card m-4 controls p-4" style="background-color: crimson;height:450px;width: 400px;opacity:0.5;border-radius:50%">
 				<b class="text-center pt-2 mt-2">SURPRISE</b><span class="text-center pb-4 mb-4"><b>Happie Birthday Bun!!!
-				 A small surprise for u!!!!</b></span>
+				Here is a small surprise for u!!!!</b></span>
 				<a href="index2.html" id="next" class="fa fa-chevron-circle-right animate__animated animate__fadeIn animate__delay-1s text-center"></a>
 			</div>
 		</div>
