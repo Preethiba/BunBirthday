@@ -149,6 +149,7 @@
 <script>
 window.onload = appstart;
 function appstart(){
+	const localStorage = window.localStorage;
     let likeCount = document.getElementById("likeCount");
     if(localStorage.getItem('likes') !== null){
         let like = JSON.parse(localStorage.getItem('likes'));
@@ -180,6 +181,7 @@ function appstart(){
 document.getElementById('like').addEventListener('click',AddOrRemoveLike);
 
 function AddOrRemoveLike(event) {
+	const localStorage = window.localStorage;
   event.target.classList.toggle("fa-thumbs-down");
   let likeCount = Number(document.getElementById('likeCount').textContent);
   if(event.target.classList.contains("fa-thumbs-down")){
@@ -197,6 +199,7 @@ function AddOrRemoveLike(event) {
 document.getElementById('love').addEventListener('click',AddOrRemoveLove);
 
 function AddOrRemoveLove(event) {
+  const localStorage = window.localStorage;
   event.target.classList.toggle("toggleClass");
   let loveCount = Number(document.getElementById('loveCount').textContent);
   if(event.target.classList.contains("toggleClass")){
@@ -214,6 +217,8 @@ function AddOrRemoveLove(event) {
 document.getElementById('addcomment').addEventListener('click',AddComment);
 
 function AddComment(e){
+	
+    const localStorage = window.localStorage;
     let commentBox = document.getElementById('commentsDiv');
     let commentInput = document.getElementById('comments').value;
 
