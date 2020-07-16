@@ -159,7 +159,6 @@ function appstart(){
     let loveCount = document.getElementById("loveCount");
     if(localStorage.getItem('loves') !== null){
         let love = JSON.parse(localStorage.getItem('loves'));
-        console.log(love.loveCounts);
         loveCount.textContent = love.loveCounts;
     }else{
         loveCount.textContent = 0;
