@@ -1,0 +1,247 @@
+<html>
+<html lang="en">
+<head>
+<title> Bun Bday </title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@700&display=swap" rel="stylesheet">
+
+<style>
+
+  .top{
+    margin-top:25px;
+	 }
+  .top1{
+    margin-top:5px;
+    background-color:rgba(18,1,54,0.9) !important;
+	text-align:center;
+	color:white;
+	font-size:bold;
+	font-family:'righteous',cursive;
+	    }
+   .head{
+     font-family: 'Grenze Gotisch', cursive;
+	 color:#900c3f !important;
+	 font-weight:bold;
+	 font-size:50rem;
+	   }
+
+	body{
+		background-color: #feada6;
+	}
+	h3 {
+	  margin-top: 30px;
+	  font-size: 18px;
+	  color: #555;
+	}
+
+	p { padding-left: 10px; }
+
+
+	span,button{
+		border: 1px solid #F2F2F2;
+		padding: 5px;
+		border-radius: 5px;
+		color:red;
+	}
+
+	button:hover{
+		background-color: red;
+		color:white;
+		cursor: pointer;
+	}
+
+	#like {
+	  font-size: 20px;
+	  color:red;
+	  cursor: pointer;
+	  user-select: none;
+	  padding:5px;
+	  border-radius: 5px;
+	  border: 1px solid #F2F2F2;
+	  background-color:white;
+	}
+
+	#like:hover {
+	  background-color: red;
+		color:white;
+		cursor: pointer;
+	}
+
+  	.pb-cmnt-container {
+        font-family: Lato;
+        margin-top: 100px;
+    }
+
+    .pb-cmnt-textarea {
+        resize: none;
+        padding: 20px;
+        height: 130px;
+        width: 100%;
+        border: 1px solid #F2F2F2;
+        border-radius: 10px;
+    }
+    #commentsDivHeading{
+      resize: none;
+      height: 130px;
+      width: 100%;
+      border: 1px solid #F2F2F2;
+      overflow: auto;
+      background-color: white;
+      border-radius: 10px;
+    }
+    ul{
+    	list-style-type: none;
+    	text-align:left;
+    	padding-top: 5px;
+    	margin-left:-30px;
+    }
+    #likeCount,#loveCount{
+    	padding-left:10px;
+    	padding-right:10px;
+    }
+</style>
+</head>
+<body>
+<div class="top1 top">
+ <h2><a class="fa fa-birthday-cake" href="./page4.html" style="font-size:48px;color:#e7305b"></a> Be A GOOD Friend and Suprise your BFF's to make them feel Special!!</h2>
+</div>
+ 
+<marquee class="moving-text" direction="right" scrolldelay="100">
+ <div class="head top"> 
+  <h2> Drop A Line and Show Some <i class="fa fa-heart-o" style="font-size:48px;color:red;"></i></h2>
+ </div>
+</marquee>
+
+<p class="text-center">
+  <i class="fa fa-thumbs-up" id="like"></i>&nbsp;<span id="likeCount"></span>
+  <button title="Love it" id="love">&#x2764;Love it</button>&nbsp;<span id="loveCount"></span>
+</p>
+</div>
+<div class="container pb-cmnt-container text-center">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-info">
+        <div class="cbox"><h2> Comment A Line!! </h2><div>
+                <div class="panel-body">
+                    <textarea placeholder="Write your thoughts here..." class="pb-cmnt-textarea" id="comments"></textarea>
+                  <br>
+                    <form class="form-inline">         
+                        <button class="btn btn-danger pull-right" type="button" id="addcomment"> Put on your thoughts </button>
+                    </form>
+                    <div id="commentsDivHeading">
+                    	<ul id="commentsDiv">
+                    	</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+window.onload = appstart;
+function appstart(){
+    let likeCount = document.getElementById("likeCount");
+    if(localStorage.getItem('likes') !== null){
+        let like = JSON.parse(localStorage.getItem('likes'));
+        likeCount.textContent = like.likesCount;
+    }else{
+        likeCount.textContent = 0;
+    }
+    let loveCount = document.getElementById("loveCount");
+    if(localStorage.getItem('loves') !== null){
+        let love = JSON.parse(localStorage.getItem('loves'));
+        console.log(love.loveCounts);
+        loveCount.textContent = love.loveCounts;
+    }else{
+        loveCount.textContent = 0;
+    }
+    let comments = document.getElementById("commentsDiv");
+    if(localStorage.getItem('comment') !== null){
+        let commentWhole = JSON.parse(localStorage.getItem('comment'));
+        let output = '';
+        commentWhole.forEach(function(comment){
+          let listItem = document.createElement('li');
+          listItem.appendChild(document.createTextNode(comment));
+          comments.appendChild(listItem);
+        });
+    }else{
+        comments.textContent = '';
+    }
+}
+
+document.getElementById('like').addEventListener('click',AddOrRemoveLike);
+
+function AddOrRemoveLike(event) {
+  event.target.classList.toggle("fa-thumbs-down");
+  let likeCount = Number(document.getElementById('likeCount').textContent);
+  if(event.target.classList.contains("fa-thumbs-down")){
+  		document.getElementById('likeCount').textContent = likeCount + 1;
+  }else{
+  		document.getElementById('likeCount').textContent = likeCount - 1;
+  }
+  let likesCount = Number(document.getElementById('likeCount').textContent);
+  let likes = {
+  	likesCount : likesCount,
+  };
+	localStorage.setItem('likes',JSON.stringify(likes));
+}
+
+document.getElementById('love').addEventListener('click',AddOrRemoveLove);
+
+function AddOrRemoveLove(event) {
+  event.target.classList.toggle("toggleClass");
+  let loveCount = Number(document.getElementById('loveCount').textContent);
+  if(event.target.classList.contains("toggleClass")){
+  		document.getElementById('loveCount').textContent = loveCount + 1;
+  }else{
+  		document.getElementById('loveCount').textContent = loveCount - 1;
+  }
+  let loveCounts = Number(document.getElementById('loveCount').textContent);
+  let loves = {
+    loveCounts : loveCounts,
+  };
+  localStorage.setItem('loves',JSON.stringify(loves));
+}
+
+document.getElementById('addcomment').addEventListener('click',AddComment);
+
+function AddComment(e){
+    let commentBox = document.getElementById('commentsDiv');
+    let commentInput = document.getElementById('comments').value;
+
+    if(commentInput.length > 0){
+        let listItem = document.createElement('li');
+        listItem.appendChild(document.createTextNode(commentInput));
+
+        commentBox.appendChild(listItem);
+
+        let commentList;
+        if(localStorage.getItem('comment') === null){
+          commentList = [];
+        }else{
+          commentList = JSON.parse(localStorage.getItem('comment'));
+        }
+        commentList.push(commentInput);
+        localStorage.setItem('comment',JSON.stringify(commentList));
+    }
+
+    e.preventDefault();
+}
+
+</script>
+
+
+
+
+
+</body>
+</html>
