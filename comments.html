@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -121,8 +121,8 @@
 </marquee>
 
 <p class="text-center">
-  <i class="fa fa-thumbs-up" id="like"></i>&nbsp;<span id="likeCount"></span>
-  <button title="Love it" id="love">&#x2764;Love it</button>&nbsp;<span id="loveCount"></span>
+  <i class="fa fa-thumbs-up" id="like"></i>&nbsp;<span id="likeCount">1</span>
+  <button title="Love it" id="love">&#x2764;Love it</button>&nbsp;<span id="loveCount">1</span>
 </p>
 </div>
 <div class="container pb-cmnt-container text-center">
@@ -146,42 +146,67 @@
     </div>
 </div>
 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
+
 <script>
-window.onload = appstart;
-function appstart(){
-	const localStorage = window.localStorage;
-    let likeCount = document.getElementById("likeCount");
-    if(localStorage.getItem('likes') !== null){
-        let like = JSON.parse(localStorage.getItem('likes'));
-        likeCount.textContent = like.likesCount;
-    }else{
-        likeCount.textContent = 0;
-    }
-    let loveCount = document.getElementById("loveCount");
-    if(localStorage.getItem('loves') !== null){
-        let love = JSON.parse(localStorage.getItem('loves'));
-        loveCount.textContent = love.loveCounts;
-    }else{
-        loveCount.textContent = 0;
-    }
-    let comments = document.getElementById("commentsDiv");
-    if(localStorage.getItem('comment') !== null){
-        let commentWhole = JSON.parse(localStorage.getItem('comment'));
-        let output = '';
-        commentWhole.forEach(function(comment){
-          let listItem = document.createElement('li');
-          listItem.appendChild(document.createTextNode(comment));
-          comments.appendChild(listItem);
-        });
-    }else{
-        comments.textContent = '';
-    }
-}
+// window.onload = appstart;
+// function appstart(){
+//     let likeCount = document.getElementById("likeCount");
+//     if(localStorage.getItem('likes') !== null){
+//         let like = JSON.parse(localStorage.getItem('likes'));
+//         likeCount.textContent = like.likesCount;
+//     }else{
+//         likeCount.textContent = 0;
+//     }
+//     let loveCount = document.getElementById("loveCount");
+//     if(localStorage.getItem('loves') !== null){
+//         let love = JSON.parse(localStorage.getItem('loves'));
+//         console.log(love.loveCounts);
+//         loveCount.textContent = love.loveCounts;
+//     }else{
+//         loveCount.textContent = 0;
+//     }
+//     let comments = document.getElementById("commentsDiv");
+//     if(localStorage.getItem('comment') !== null){
+//         let commentWhole = JSON.parse(localStorage.getItem('comment'));
+//         let output = '';
+//         commentWhole.forEach(function(comment){
+//           let listItem = document.createElement('li');
+//           listItem.appendChild(document.createTextNode(comment));
+//           comments.appendChild(listItem);
+//         });
+//     }else{
+//         comments.textContent = '';
+//     }
+// }
+
+ // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDVj5rWvva6IwZmm0ZgAovLYRs6X9jI8QY",
+    authDomain: "bday-surprise.firebaseapp.com",
+    databaseURL: "https://bday-surprise.firebaseio.com",
+    projectId: "bday-surprise",
+    storageBucket: "bday-surprise.appspot.com",
+    messagingSenderId: "869093336913",
+    appId: "1:869093336913:web:b0f21246391c3dd0229570"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // var database = firebase.database();
+
+  const rootRef1 = firebase.database().ref("usersLike/");
+  const rootRef2 = firebase.database().ref("usersLove/");
+  const rootRef3 = firebase.database().ref("usersComment/");
+  
+
 
 document.getElementById('like').addEventListener('click',AddOrRemoveLike);
 
 function AddOrRemoveLike(event) {
-	const localStorage = window.localStorage;
   event.target.classList.toggle("fa-thumbs-down");
   let likeCount = Number(document.getElementById('likeCount').textContent);
   if(event.target.classList.contains("fa-thumbs-down")){
@@ -189,17 +214,15 @@ function AddOrRemoveLike(event) {
   }else{
   		document.getElementById('likeCount').textContent = likeCount - 1;
   }
-  let likesCount = Number(document.getElementById('likeCount').textContent);
-  let likes = {
-  	likesCount : likesCount,
-  };
-	localStorage.setItem('likes',JSON.stringify(likes));
+  likesCount = Number(document.getElementById('likeCount').textContent);
+  rootRef1.set({
+      "likeCount" : window.likesCount,
+  });
 }
 
 document.getElementById('love').addEventListener('click',AddOrRemoveLove);
 
 function AddOrRemoveLove(event) {
-  const localStorage = window.localStorage;
   event.target.classList.toggle("toggleClass");
   let loveCount = Number(document.getElementById('loveCount').textContent);
   if(event.target.classList.contains("toggleClass")){
@@ -207,18 +230,16 @@ function AddOrRemoveLove(event) {
   }else{
   		document.getElementById('loveCount').textContent = loveCount - 1;
   }
-  let loveCounts = Number(document.getElementById('loveCount').textContent);
-  let loves = {
-    loveCounts : loveCounts,
-  };
-  localStorage.setItem('loves',JSON.stringify(loves));
+  loveCounts = Number(document.getElementById('loveCount').textContent);
+  rootRef2.set({
+    loveCount : loveCounts,
+  })
 }
+
 
 document.getElementById('addcomment').addEventListener('click',AddComment);
 
 function AddComment(e){
-	
-    const localStorage = window.localStorage;
     let commentBox = document.getElementById('commentsDiv');
     let commentInput = document.getElementById('comments').value;
 
@@ -228,6 +249,7 @@ function AddComment(e){
 
         commentBox.appendChild(listItem);
 
+       
         let commentList;
         if(localStorage.getItem('comment') === null){
           commentList = [];
@@ -236,6 +258,10 @@ function AddComment(e){
         }
         commentList.push(commentInput);
         localStorage.setItem('comment',JSON.stringify(commentList));
+
+         rootRef3.set({
+          comment : commentList,
+        });
     }
 
     e.preventDefault();
@@ -243,6 +269,10 @@ function AddComment(e){
 
 </script>
 
+
+ 
+
+</script>
 
 
 
