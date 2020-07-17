@@ -1,5 +1,5 @@
+<!Doctype html>
 <html>
-<html lang="en">
 <head>
 <title> Bun Bday </title>
 <meta charset="UTF-8">
@@ -13,7 +13,8 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap" rel="stylesheet">
 <style>
 
   .top{
@@ -28,8 +29,8 @@
 	font-family:'righteous',cursive;
 	    }
    .head{
-     font-family: 'Grenze Gotisch', cursive;
-	 color:#900c3f !important;
+     font-family: 'Kaushan Script', cursive;
+	 color:#771144 !important;
 	 font-weight:bold;
 	 font-size:50rem;
 	   }
@@ -110,16 +111,27 @@
     	padding-left:10px;
     	padding-right:10px;
     }
+	.cbox{
+		font-family: 'Oleo Script', cursive;
+		color:#561050;
+	}
+	 .top2{
+    margin-top:5px;
+  	text-align:center;
+  	color:#35013f;
+  	font-size:bold;
+  	font-family:'righteous',cursive;
+	    }
 </style>
 </head>
 <body>
 <div class="top1 top">
- <h2><a class="fa fa-birthday-cake" href="./page4.html" style="font-size:48px;color:#e7305b"></a> Be A GOOD Friend and Surprise your BFF's to make them feel Special!!</h2>
+ <h2><a class="fa fa-birthday-cake" href="../../Downloads/page4.html" style="font-size:48px;color:#e7305b"></a> We Wish You A Most Fantastic day Filled with Joyful Moments!! </h2>
 </div>
  
 <marquee class="moving-text" direction="right" scrolldelay="100">
  <div class="head top"> 
-  <h2> Drop A Line and Show Some <i class="fa fa-heart-o" style="font-size:48px;color:red;"></i></h2>
+  <h1> Drop A Line and Show Some <i class="fas fa-heart" style="font-size:38px;color:red;"></i></h1>
  </div>
 </marquee>
 
@@ -127,7 +139,6 @@
   <i class="fa fa-thumbs-up" id="like"></i>&nbsp;<span id="likeCount">1</span>
   <button title="Love it" id="love">&#x2764;Love it</button>&nbsp;<span id="loveCount">1</span>
 </p>
-</div>
 <div class="container pb-cmnt-container text-center">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -135,10 +146,10 @@
         <div class="cbox"><h2> Comment A Line!! </h2><div>
                 <div class="panel-body">
                     <textarea placeholder="Write your thoughts here..." class="pb-cmnt-textarea" id="comments"></textarea>
-                  <br>
                     <form class="form-inline">         
                         <button class="btn btn-danger pull-right" type="button" id="addcomment"> Put on your thoughts </button>
                     </form>
+                    <br>
                     <div id="commentsDivHeading">
                     	<ul id="commentsDiv">
                     	</ul>
@@ -148,8 +159,20 @@
         </div>
     </div>
 </div>
+		<br>
+<!-----Footer------->
+<div class="top2">
+		<div class="row">
+			<div class="col-sm-3">
+			<img src="bdaygif.gif" alt="virtual suprise" height="100" width="100">
+			</div>
+			<div class="col-sm-3">
+				<h1> WEB'RISE VIRTUAL SURPRISE!! </h1>
+			</div>
+		</div>
+</div>
+		
 
-<!-- The core Firebase JS SDK is always required and must be listed first -->
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
@@ -195,9 +218,8 @@
       const comments = document.getElementById("commentsDiv");
 
       snapshot.forEach((comment) => {
-        let listItem = document.createElement('tr');
-        listItem.appendChild(document.createTextNode(comment.val().comment));
-        comments.appendChild(listItem);
+        listItem = '<li>' + comment.val().comment + '</li>';
+        comments.innerHTML += listItem;
       });
     }
     );
