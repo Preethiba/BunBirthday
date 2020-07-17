@@ -5,10 +5,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@700&display=swap" rel="stylesheet">
@@ -87,6 +88,7 @@
         width: 100%;
         border: 1px solid #F2F2F2;
         border-radius: 10px;
+        font-family:  'Yellowtail', cursive;
     }
     #commentsDivHeading{
       resize: none;
@@ -96,12 +98,13 @@
       overflow: auto;
       background-color: white;
       border-radius: 10px;
+      font-family:  'Yellowtail', cursive;
     }
     ul{
     	list-style-type: none;
     	text-align:left;
-    	padding-top: 5px;
-    	margin-left:-30px;
+    	padding-top: 20px;
+    	margin-left:-20px;
     }
     #likeCount,#loveCount{
     	padding-left:10px;
@@ -111,7 +114,7 @@
 </head>
 <body>
 <div class="top1 top">
- <h2><a class="fa fa-birthday-cake" href="./page4.html" style="font-size:48px;color:#e7305b"></a> Be A GOOD Friend and Suprise your BFF's to make them feel Special!!</h2>
+ <h2><a class="fa fa-birthday-cake" href="./page4.html" style="font-size:48px;color:#e7305b"></a> Be A GOOD Friend and Surprise your BFF's to make them feel Special!!</h2>
 </div>
  
 <marquee class="moving-text" direction="right" scrolldelay="100">
@@ -152,36 +155,6 @@
 <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
 
 <script>
-// window.onload = appstart;
-// function appstart(){
-//     let likeCount = document.getElementById("likeCount");
-//     if(localStorage.getItem('likes') !== null){
-//         let like = JSON.parse(localStorage.getItem('likes'));
-//         likeCount.textContent = like.likesCount;
-//     }else{
-//         likeCount.textContent = 0;
-//     }
-//     let loveCount = document.getElementById("loveCount");
-//     if(localStorage.getItem('loves') !== null){
-//         let love = JSON.parse(localStorage.getItem('loves'));
-//         console.log(love.loveCounts);
-//         loveCount.textContent = love.loveCounts;
-//     }else{
-//         loveCount.textContent = 0;
-//     }
-//     let comments = document.getElementById("commentsDiv");
-//     if(localStorage.getItem('comment') !== null){
-//         let commentWhole = JSON.parse(localStorage.getItem('comment'));
-//         let output = '';
-//         commentWhole.forEach(function(comment){
-//           let listItem = document.createElement('li');
-//           listItem.appendChild(document.createTextNode(comment));
-//           comments.appendChild(listItem);
-//         });
-//     }else{
-//         comments.textContent = '';
-//     }
-// }
 
  // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -201,7 +174,33 @@
   const rootRef1 = firebase.database().ref("usersLike/");
   const rootRef2 = firebase.database().ref("usersLove/");
   const rootRef3 = firebase.database().ref("usersComment/");
+
+
+  rootRef1.on("value",
+
+    (snapshot) => {
+          document.getElementById('likeCount').textContent = snapshot.val().likeCount;
+      }
+    );
   
+  rootRef2.on("value",
+
+    (snapshot) => {
+          document.getElementById('loveCount').textContent = snapshot.val().loveCount;
+      }
+    );
+
+  rootRef3.once("value",
+    (snapshot) => {
+      const comments = document.getElementById("commentsDiv");
+
+      snapshot.forEach((comment) => {
+        let listItem = document.createElement('tr');
+        listItem.appendChild(document.createTextNode(comment.val().comment));
+        comments.appendChild(listItem);
+      });
+    }
+    );
 
 
 document.getElementById('like').addEventListener('click',AddOrRemoveLike);
@@ -249,18 +248,8 @@ function AddComment(e){
 
         commentBox.appendChild(listItem);
 
-       
-        let commentList;
-        if(localStorage.getItem('comment') === null){
-          commentList = [];
-        }else{
-          commentList = JSON.parse(localStorage.getItem('comment'));
-        }
-        commentList.push(commentInput);
-        localStorage.setItem('comment',JSON.stringify(commentList));
-
-         rootRef3.set({
-          comment : commentList,
+        rootRef3.push({
+          comment : commentInput,
         });
     }
 
@@ -268,14 +257,5 @@ function AddComment(e){
 }
 
 </script>
-
-
- 
-
-</script>
-
-
-
-
 </body>
 </html>
