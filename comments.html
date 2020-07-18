@@ -232,8 +232,6 @@ function AddOrRemoveLike(event) {
   let likeCount = Number(document.getElementById('likeCount').textContent);
   if(event.target.classList.contains("fa-thumbs-down")){
   		document.getElementById('likeCount').textContent = likeCount + 1;
-  }else{
-  		document.getElementById('likeCount').textContent = likeCount - 1;
   }
   likesCount = Number(document.getElementById('likeCount').textContent);
   rootRef1.set({
@@ -248,8 +246,6 @@ function AddOrRemoveLove(event) {
   let loveCount = Number(document.getElementById('loveCount').textContent);
   if(event.target.classList.contains("toggleClass")){
   		document.getElementById('loveCount').textContent = loveCount + 1;
-  }else{
-  		document.getElementById('loveCount').textContent = loveCount - 1;
   }
   loveCounts = Number(document.getElementById('loveCount').textContent);
   rootRef2.set({
